@@ -1,0 +1,2 @@
+
+The responsive.css page has been correctly implemented and functions as it's supposed to. I collaborated on this assignment with Sabrina Miller. I spent approximately 2 hours working on this assignment. 
