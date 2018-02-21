@@ -1,0 +1,1 @@
+The index.html page correctly displays the lyrics of the video and the style.css page adds some styling. I have discussed the assignment with Laurel Haeger and Sabrina Miller. I spent approximately 1.5 hours on this assignment.
