@@ -13,12 +13,13 @@
 <body onload="getLocation()">
     <div id="map"></div>
 
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDFhDwWQ1eKmdTHZ_Oax3X3xihyGxVqaE&callback=initMap"
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDFhDwWQ1eKmdTHZ_Oax3X3xihyGxVqaE&callback=initMap&libraries=geometry"
     async defer></script>
 
     <script>
       var map;
       var pos;
+      var infowindow2;
 
       function getLocation() {
     	if (navigator.geolocation) {
@@ -44,6 +45,8 @@
 
 		sendData();
 		}
+
+
       function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: pos,
@@ -63,14 +66,33 @@
 			if (request.readyState == 4 && request.status == 200) {
     		var result = request.responseText;
      		divElement = document.getElementById("map");
-     		map = JSON.parse(result);
-     		console.log(map);
-
-     		//for (int i = 0; i < map.length(), i++)
-     			//outputString = 
-     		//divElement.innerHTML = result;
+     		data = JSON.parse(result);
+     		for (var i = 0; i < data.vehicles.length; i++) {
+     			vehicleLocation = { lat: data.vehicles[i].lat, lng: data.vehicles[i].lng };
+     			var distbtwn = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(pos), new google.maps.LatLng(vehicleLocation));
+				var inMiles = distbtwn * 0.000621;
+     			makeMarker(data.vehicles[i].username, inMiles);
+     		}
      	}
 		}
+
+		function makeMarker(username, distance){
+			distance = Math.round(distance * 1000) / 1000;
+			var carimage = 'car.png';
+			var carMarker = new google.maps.Marker({
+					position: vehicleLocation,
+					map: map,
+					title: "Username: " + username + " Distance: " + distance + " miles",
+					icon: carimage
+				});
+				infowindow2 = new google.maps.InfoWindow();
+				carMarker.setMap(map);
+				google.maps.event.addListener(carMarker, 'click', function() {
+					infowindow2.setContent(carMarker.title);
+					infowindow2.open(map, carMarker);
+				});
+		}
+
 		var word = "username=L18D0Dsakn&lat=" + pos.lat + "&lng=" + pos.lng;
 		request.send(word);
 	}
