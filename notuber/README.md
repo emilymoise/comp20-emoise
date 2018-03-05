@@ -1,0 +1,1 @@
+All the aspects of the assignment are implemented according to the spec. The index.html is set up in a way that allows the user to either be a passenger or a vehicle. I discussed the assignment with Laurel Haeger. The assignment took me approximately 4.5 hours to complete. 
