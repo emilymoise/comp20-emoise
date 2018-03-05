@@ -20,6 +20,7 @@
       var map;
       var pos;
       var marker;
+      var imageOther;
       var infowindow;
       var infowindow2;
       var shortDist;
@@ -59,6 +60,13 @@
 	    		var result = request.responseText;
 	     		divElement = document.getElementById("map");
 	     		data = JSON.parse(result);
+	     		if ("vehicles" in data) {
+	     			imageOther = 'car.png';
+	     		}
+	     		if ("passengers" in data) {
+	     			imageOther = 'peopleicon.png';
+	     		}
+	   
 	     		for (var i = 0; i < data.vehicles.length; i++) {
 	     			vehicleLocation = { lat: data.vehicles[i].lat, lng: data.vehicles[i].lng };
 	     			var distbtwn = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(pos), new google.maps.LatLng(vehicleLocation));
@@ -67,20 +75,19 @@
 					if (shortDist < shortestDist) {
 						shortestDist = shortDist;
 					}
-	     			makeMarkers(data.vehicles[i].username, inMiles, shortestDist);
+	     			makeMarkers(data.vehicles[i].username, inMiles, shortestDist, imageOther);
 	     		}
 	     	}
 			}
 
-			function makeMarkers(username, distance, shortestDist){
+			function makeMarkers(username, distance, shortestDist, image2){
 				distance = Math.round(distance * 1000) / 1000;
 				shortestDist = Math.round(shortestDist * 1000) / 1000;
-				var carimage = 'car.png';
 				var carMarker = new google.maps.Marker({
 						position: vehicleLocation,
 						map: map,
 						title: "Username: " + username + " Distance: " + distance + " miles",
-						icon: carimage
+						icon: image2
 					});
 					infowindow2 = new google.maps.InfoWindow();
 					carMarker.setMap(map);
