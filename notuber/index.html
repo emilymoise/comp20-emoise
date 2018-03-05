@@ -19,7 +19,11 @@
     <script>
       var map;
       var pos;
+      var marker;
+      var infowindow;
       var infowindow2;
+      var shortDist;
+      var shortestDist = 1000;
 
       function getLocation() {
     	if (navigator.geolocation) {
@@ -28,74 +32,80 @@
   	   }
   	   function gotLocation(position) {
   	   	pos = { lat: position.coords.latitude, lng: position.coords.longitude }
-		var image = 'icon.png';
-		var marker = new google.maps.Marker({
-			position: pos,
-			map: map,
-			title: "Your Current Location",
-			icon: image
-		})
 		map.setCenter(new google.maps.LatLng(pos));
 		map.setZoom(15);
-		var infowindow = new google.maps.InfoWindow();
-		google.maps.event.addListener(marker, 'click', function() {
-				infowindow.setContent(marker.title);
-				infowindow.open(map, marker);
-		});
 
 		sendData();
 		}
 
 
-      function initMap() {
+    	function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
           center: pos,
           zoom: 8
         });;
-      }
+    	}
 
-	function sendData() {
-		var request;
+		function sendData() {
+			var request;
 
-		request = new XMLHttpRequest();
+			request = new XMLHttpRequest();
 
-		request.open("POST", "https://jordan-marsh.herokuapp.com/rides", true);
-		request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+			request.open("POST", "https://jordan-marsh.herokuapp.com/rides", true);
+			request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
-		request.onreadystatechange = function() {
-			if (request.readyState == 4 && request.status == 200) {
-    		var result = request.responseText;
-     		divElement = document.getElementById("map");
-     		data = JSON.parse(result);
-     		for (var i = 0; i < data.vehicles.length; i++) {
-     			vehicleLocation = { lat: data.vehicles[i].lat, lng: data.vehicles[i].lng };
-     			var distbtwn = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(pos), new google.maps.LatLng(vehicleLocation));
-				var inMiles = distbtwn * 0.000621;
-     			makeMarker(data.vehicles[i].username, inMiles);
-     		}
-     	}
-		}
+			request.onreadystatechange = function() {
+				if (request.readyState == 4 && request.status == 200) {
+	    		var result = request.responseText;
+	     		divElement = document.getElementById("map");
+	     		data = JSON.parse(result);
+	     		for (var i = 0; i < data.vehicles.length; i++) {
+	     			vehicleLocation = { lat: data.vehicles[i].lat, lng: data.vehicles[i].lng };
+	     			var distbtwn = google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(pos), new google.maps.LatLng(vehicleLocation));
+					var inMiles = distbtwn * 0.000621;
+					shortDist = inMiles;
+					if (shortDist < shortestDist) {
+						shortestDist = shortDist;
+					}
+	     			makeMarkers(data.vehicles[i].username, inMiles, shortestDist);
+	     		}
+	     	}
+			}
 
-		function makeMarker(username, distance){
-			distance = Math.round(distance * 1000) / 1000;
-			var carimage = 'car.png';
-			var carMarker = new google.maps.Marker({
-					position: vehicleLocation,
+			function makeMarkers(username, distance, shortestDist){
+				distance = Math.round(distance * 1000) / 1000;
+				shortestDist = Math.round(shortestDist * 1000) / 1000;
+				var carimage = 'car.png';
+				var carMarker = new google.maps.Marker({
+						position: vehicleLocation,
+						map: map,
+						title: "Username: " + username + " Distance: " + distance + " miles",
+						icon: carimage
+					});
+					infowindow2 = new google.maps.InfoWindow();
+					carMarker.setMap(map);
+					google.maps.event.addListener(carMarker, 'click', function() {
+						infowindow2.setContent(carMarker.title);
+						infowindow2.open(map, carMarker);
+					});
+					var image = 'icon.png';
+					marker = new google.maps.Marker({
+					position: pos,
 					map: map,
-					title: "Username: " + username + " Distance: " + distance + " miles",
-					icon: carimage
-				});
-				infowindow2 = new google.maps.InfoWindow();
-				carMarker.setMap(map);
-				google.maps.event.addListener(carMarker, 'click', function() {
-					infowindow2.setContent(carMarker.title);
-					infowindow2.open(map, carMarker);
-				});
-		}
+					title: "Distance to nearest: " + shortestDist + " miles" ,
+					icon: image
+					})
+					infowindow = new google.maps.InfoWindow();
+					google.maps.event.addListener(marker, 'click', function() {
+						infowindow.setContent(marker.title);
+						infowindow.open(map, marker);
+						});
 
-		var word = "username=L18D0Dsakn&lat=" + pos.lat + "&lng=" + pos.lng;
-		request.send(word);
-	}
+			}
+
+			var word = "username=L18D0Dsakn&lat=" + pos.lat + "&lng=" + pos.lng;
+			request.send(word);
+		}
 
 
     </script>
