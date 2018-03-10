@@ -1,0 +1,1 @@
+The index.html page has been implemented correctly. The most recent messages appear first and all messages are stored in local storage. Refreshing the pages keeps the messages in local storage. I discussed the assignment with Laurel Haeger. I spent approximately 2 hours on this assignment.
