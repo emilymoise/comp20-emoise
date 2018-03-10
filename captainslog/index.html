@@ -14,7 +14,7 @@
                 if(keycode == 13) {
                         var d = new Date;
                         message = d + " - " + $("#msg").val();
-                        console.log(message);
+                        $(log).css('color', 'white');
                         $(log).prepend(message + "<br>");
                         localStorage.setItem(d, message);
                         $('#msg').val('');
