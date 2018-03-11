@@ -16,7 +16,7 @@
                         message = d + " - " + $("#msg").val();
                         $(log).css('color', 'white');
                         $(log).prepend(message + "<br>");
-                        localStorage.setItem(d, message);
+                        localStorage.setItem(d, $("#msg").val());
                         $('#msg').val('');
                     }           
             });
