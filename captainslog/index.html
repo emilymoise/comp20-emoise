@@ -12,17 +12,24 @@
         var message = "";
         var d;
         var val;
+        var ray = [];
+        var output;
         $(document).ready(function(){
-             $("#log").css('color', 'white');
+            $("#log").css('color', 'white');
             for (var i = (localStorage.length - 1); i >= 0; i--)
             {
                 var reloadkey = localStorage.key(i);
                 var reloadval = localStorage.getItem(localStorage.key(i));
-                var output = reloadkey + " - " + reloadval + "</br>";
-                message = message + output;
+                output = reloadkey + " - " + reloadval + "</br>";
+                ray[i] = output;
+            }
+            output = ray.sort();
+            output = output.reverse();
+            for (var i = 0; i < output.length; i++)
+            {
+                message = message + output[i];
             }
             $("#log").html(message);
-
             $("#msg").keypress(function(event) {     
                 var keycode = event.keyCode || event.which;
                 if(keycode == 13) {
