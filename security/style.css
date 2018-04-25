@@ -11,7 +11,12 @@ body {
 	background-color: #C7E8F6;
 }
 
-img {
+.image1 {
+	width: 600px;
+	height: 100px;
+}
+
+.image2 {
 	width: 600px;
 	height: 100px;
 }

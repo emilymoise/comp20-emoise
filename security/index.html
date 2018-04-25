@@ -29,11 +29,18 @@
         <li>This issue appears on the "http://blooming-castle-19126.herokuapp.com" page, but in the code, the app.get('/') path is the function that sets this page.</li>
         <li>In terms of privacy issues, this is a high priority issue. Passengers using this service need to feel confident that their information is not being leaked to strangers.</li>
         <li>I found this issue just by looking at the current app, with the help of Professor Ming. It is obvious that just by accessing the page, anyone is able to have access to this, which is an issue.</li>
-        <li><img src="proof1.png" alt="proofIssue1"></li>
+        <li><img src="proof1.png" alt="proofIssue1" class="image1"></li>
         <li>To fix this issue, a user authentication system would have to be put into place so that strangers are not allowed on the site, getting the passenger's location.</li>
     </ul>
     <h4>Issue #2:</h4>
-
+    <ul>
+        <li>The second issue found was that the programmer allows cross origin access for everything, meaning that there is no limitation on who has cross origin access.</li>
+        <li>This issue is found in the index.js file for the blooming-castle-19126 app.</li>
+        <li>This has the potential to be a high-stakes issue, but because the page is not that public, it is not a high priority issue because it is unlikely that the page will be hacked by another website.</li>
+        <li>I found this issue by noticing the asterick on line 36 of the index.js file.</li>
+        <li><img src="proof2.png" alt="proofIssue2" class="image2"></li>
+        <li>To fix this issue, the programmer would remove the asterick and specify who they are allowing to have access to the site.</li>
+    </ul>
     <h4>Issue #3:</h4>
 
     <h2>Conclusion</h2>
