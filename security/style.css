@@ -1,0 +1,12 @@
+h1 {
+	font-family: "Optima";
+	font-size: 20pt;
+	color: white;
+	border: double;
+	border-color: white;
+}
+
+
+body {
+	background-color: SlateBlue;
+}
