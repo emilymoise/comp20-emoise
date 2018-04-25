@@ -10,5 +10,37 @@
 
 <body>
     <h1>Security Assessment</h1>
+
+    <h2>Introduction</h2>
+    <p>The product under consideration is the NotUber app that was made for Assignments 2 and 3 of the Comp20 class. The product is being checked for web vulnerabilities and security problems associated with the program.</p>
+
+    <h2>Methodology</h2>
+    <p>In my first attempt to find vulnerbilities, I first scanned the index.js file provided by my partner. The next thing I did was download a heroku add-on called snyk. Snyk scanned the files to check for any vulnerbilities. I then googled other ways to find vulnerbilities, including using Piazza to use the information my classmates were posting. Lastly, I went to office hours to discuss the vulnerbilities with app.</p>
+
+    <h2>Abstract of Findings</h2>
+    <p>The first issue found with the code was that the app displays the list of latitudes and longitudes when the correct URL is entered. This is an issue with the user's privacy.</p>
+    <p>The second issue found with the code was that when the web designer allowed cross origin access, he did so for everything. This is a security issue because there is no limit to who may have cross origin access to the site.</p>
+    <p>The third issue found is that there is no way to recycle data. Once there is too much data entered into the database, there will not be enough space to store more data. This causes an issue because it limits the lifespan of the app.</p>
+
+    <h2>Issues Found</h2>
+    <h4>Issue #1:</h4>
+    <ul>
+        <li>The first issue found was that the page displays the latitude and longitude of the passengers to anyone who searches the URL.</li>
+        <li>This issue appears on the "http://blooming-castle-19126.herokuapp.com" page, but in the code, the app.get('/') path is the function that sets this page.</li>
+        <li>In terms of privacy issues, this is a high priority issue. Passengers using this service need to feel confident that their information is not being leaked to strangers.</li>
+        <li>I found this issue just by looking at the current app, with the help of Professor Ming. It is obvious that just by accessing the page, anyone is able to have access to this, which is an issue.</li>
+        <li><img src="proof1.png" alt="proofIssue1"></li>
+        <li>To fix this issue, a user authentication system would have to be put into place so that strangers are not allowed on the site, getting the passenger's location.</li>
+    </ul>
+    <h4>Issue #2:</h4>
+
+    <h4>Issue #3:</h4>
+
+    <h2>Conclusion</h2>
+    <p>In conclusion, the issues found in this program can be easily fixed with little cost. The privacy issues can be fixed with the addition of an authentication page in order to confirm that the user who is trying to see where the passengers are is indeed a vehicle (similar to the real uber app).</p>
+
+    <h2>References</h2>
+    <p>The main resource I used for this assignment was office hours. Other resources include, "https://snyk.io/org/snyk-symmetrical-13323-heroku/", "Piazza.com", and "https://cwe.mitre.org/data/definitions/159.html".</p>
+
 </body>
 </html>
