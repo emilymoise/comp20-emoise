@@ -1,0 +1,1 @@
+The index.html page has been correctly implemented. The style.css page works in correspondence with the index page. I have discussed the assignment with my partner, Michael Dunkelman, and Laurel Haeger. I have also discussed the assignment with Professor Ming in office hours. I have spent approximately 3 hours completing this assignment. 
